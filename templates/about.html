@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - The Hallucination Identification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --electric-moss: #d5eab1;
+            --amethyst: #a855f7;
+            --deep-forest: #425519;
+            --parchment: #c4a862;
+        }
+        
+        body {
+            background-color: var(--deep-forest);
+            color: #e9d5ff;
+            font-family: 'EB Garamond', serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            cursor: none;
+        }
+
+        /* --- BACKGROUND --- */
+        .scene {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 15% 15%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(213, 234, 177, 0.1) 0%, transparent 40%);
+            background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png");
+            z-index: -1;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            inset: -50%;
+            background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- UI ELEMENTS --- */
+        .aether-nav { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem; position: relative; z-index: 20; }
+        .nav-link {
+            font-family: 'Cinzel Decorative', serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15rem;
+            color: var(--electric-moss); padding: 0.5rem 1rem; border: 1px solid rgba(222, 255, 165, 0.2);
+            background: rgba(26, 5, 45, 0.4); backdrop-filter: blur(5px); border-radius: 4px; transition: all 0.4s ease;
+        }
+        .nav-link:hover { 
+            color: white; 
+            border-color: var(--electric-moss); 
+            box-shadow: 0 0 20px rgba(213, 234, 177, 0.4); 
+            transform: translateY(-2px);
+        }
+
+        .scrap-page {
+            background-color: var(--parchment);
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            color: #251e1e;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            clip-path: polygon(
+                0% 2%, 5% 0%, 10% 3%, 25% 1%, 50% 4%, 75% 1%, 90% 3%, 100% 0%,
+                98% 15%, 100% 35%, 97% 50%, 100% 75%, 98% 90%, 100% 100%,
+                75% 98%, 50% 100%, 25% 97%, 0% 100%,
+                2% 75%, 0% 50%, 3% 25%, 1% 10%
+            );
+        }
+
+        /* --- CURSOR --- */
+        #cursor-dot { position: fixed; width: 6px; height: 6px; background: white; border-radius: 50%; pointer-events: none; z-index: 1000; mix-blend-mode: difference; }
+        #cursor-ring { position: fixed; width: 40px; height: 40px; border: 1px solid var(--electric-moss); border-radius: 50%; pointer-events: none; z-index: 999; transition: transform 0.2s ease-out; }
+
+        .glow-title { 
+            font-family: 'Cinzel Decorative', serif;
+            background: linear-gradient(to bottom, #ffffff 40%, var(--electric-moss) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(213, 234, 177, 0.3);
+        }
+
+        .vine-svg {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            width: 150px;
+            opacity: 0.4;
+            transform: rotate(-15deg);
+        }
+    </style>
+</head>
+<body class="p-8 md:p-12">
+
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+    <div class="noise-overlay"></div>
+    <div class="scene"></div>
+
+    <div class="max-w-4xl mx-auto z-10 relative">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl glow-title mb-6">ABOUT OUR PROJECT</h1>
+            <nav class="aether-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="level1.html" class="nav-link">Level 1</a>
+            </nav>
+        </header>
+
+        <main class="scrap-page p-12 md:p-20 relative rotate-1">
+            <svg class="vine-svg" viewBox="0 0 100 100">
+                <path d="M100,0 Q70,30 80,50 T20,100" fill="none" stroke="#5f7426" stroke-width="2" />
+                <circle cx="20" cy="100" r="3" fill="#a855f7" />
+            </svg>
+
+            <h2 class="font-['Cinzel_Decorative'] text-3xl text-purple-900 mb-8 border-b border-stone-400 pb-2">The Goal</h2>
+            
+            <div class="text-[30px] leading-relaxed text-stone-800 space-y-6 italic">
+                <p>
+                    The task is simple: "Generate Text" of a specific topic (Biology, Politics, etc.) and identify our AI's misinformation.  
+                </p>
+                
+                <p>
+                    In world full of fantasies, falsehoods, and misinformation, it is up to you to discover what is real and what is fake; a hallucination. <br><br> Rely on your critical thinking skills to judge what is the truth and what is a lie.
+                </p>
+
+                <h3 class="font-['Cinzel_Decorative'] text-xl text-purple-900 pt-6">The Methodology</h3>
+                
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus. 
+                </p>
+
+                <p>
+                    Arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque. In egestas erat imperdiet sed euismod nisi porta lorem mollis.
+                </p>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-stone-300 flex justify-between items-center">
+                <span class="font-['Great_Vibes'] text-3xl text-stone-500">Sincerely, <br>Your Authors: Sudisha, Lauren</span>
+                <a href="index.html" class="text-[20px] uppercase tracking-widest font-bold text-purple-900 hover:text-black transition-colors">Return to Library →</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        let mX = 0, mY = 0, rX = 0, rY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mX = e.clientX; mY = e.clientY;
+            dot.style.left = mX + 'px'; dot.style.top = mY + 'px';
+        });
+
+        function smoothCursor() {
+            rX += (mX - rX - 20) * 0.15;
+            rY += (mY - rY - 20) * 0.15;
+            ring.style.left = rX + 'px'; ring.style.top = rY + 'px';
+            requestAnimationFrame(smoothCursor);
+        }
+        smoothCursor();
+
+        // Cursor scaling
+        const interactables = document.querySelectorAll('.nav-link, a, button');
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', () => ring.style.transform = 'scale(1.8)');
+            el.addEventListener('mouseleave', () => ring.style.transform = 'scale(1)');
+        });
+    </script>
+</body>
+</html>
