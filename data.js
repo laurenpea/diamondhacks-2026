@@ -113,13 +113,6 @@ export const truthStore = [
     research_source: "University of Cambridge / Historical scholarship"
   },
   {
-    id: "hist_03",
-    topic: "History",
-    statement: "The pyramids of Egypt were built by slaves.",
-    true_fact: "Evidence suggests the pyramids were built by skilled laborers who were paid and housed.",
-    research_source: "Smithsonian Magazine / Egyptology research"
-  },
-  {
     id: "lit_01",
     topic: "Literature",
     statement: "All dystopian novels predict the future accurately, so modern surveillance will definitely lead to totalitarian control.",
