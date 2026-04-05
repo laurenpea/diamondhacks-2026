@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Aetheric Folio: Trial of Truth</title>
+    <title>The Aetheric Folio: Level 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --deep-violet: #96b63f; 
-            --electric-moss: #deffa5;
+            --electric-moss: #d5eab1;
             --amethyst: #a855f7;
-            --parchment: #faedcd;
+            --parchment: #dfca94;
             --nectar: #13110a;
             --incorrect-missed: #ffc518;
             --correct-hit: #0dab47;    
@@ -24,87 +24,34 @@
                 radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 40%),
                 radial-gradient(circle at 90% 80%, rgba(190, 242, 100, 0.1) 0%, transparent 40%),
                 url("https://www.transparenttextures.com/patterns/dark-leather.png"),
-                #96b63f;
+                #6c832d;
             background-attachment: fixed;
             color: #e9d5ff;
             font-family: 'EB Garamond', serif;
             overflow-x: hidden;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><text y="16" font-size="16">✨</text></svg>'), auto;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><text y="16" font-size="16">🔍</text></svg>'), auto;
         }
 
-        /* --- NAVIGATION STYLES --- */
-        .aether-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
+        /* --- NAVIGATION --- */
+        .aether-nav { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem; flex-wrap: wrap; }
         .nav-link {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15rem;
-            color: var(--electric-moss);
-            padding: 0.5rem 1rem;
-            border: 1px solid rgba(222, 255, 165, 0.2);
-            background: rgba(26, 5, 45, 0.4);
-            backdrop-filter: blur(5px);
-            border-radius: 4px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
+            font-family: 'Cinzel Decorative', serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15rem;
+            color: var(--electric-moss); padding: 0.5rem 1rem; border: 1px solid rgba(222, 255, 165, 0.2);
+            background: rgba(26, 5, 45, 0.4); backdrop-filter: blur(5px); border-radius: 4px; transition: all 0.4s ease;
+        }
+        .nav-link:hover { color: white; border-color: var(--electric-moss); box-shadow: 0 0 15px rgba(222, 255, 165, 0.4); transform: translateY(-3px); }
+
+        /* --- TITLE BORDER --- */
+        .title-container {
+            display: inline-block;
+            padding-top: 8px;
+            padding-right: 5px;
+            padding-bottom: 8px;
+            padding-left:5px;
+            background: rgba(28, 0, 53, 0.581);
         }
 
-        .nav-link:hover {
-            color: white;
-            border-color: var(--electric-moss);
-            box-shadow: 0 0 15px rgba(222, 255, 165, 0.4);
-            transform: translateY(-3px);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 50%; width: 0; height: 1px;
-            background: var(--electric-moss);
-            transition: all 0.4s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 80%;
-            left: 10%;
-        }
-
-        /* --- EXISTING STYLES --- */
-        .magic-border {
-            position: relative;
-            background: #230b42;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .magic-border::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            border-radius: 14px;
-            background: linear-gradient(45deg, var(--amethyst), var(--electric-moss), var(--nectar), var(--amethyst));
-            background-size: 400%;
-            z-index: -1;
-            animation: breatheBorder 6s linear infinite;
-            filter: blur(8px);
-            opacity: 0.5;
-        }
-
-        @keyframes breatheBorder {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        /* --- SCRAPBOOK & MAGIC --- */
         .scrap-page {
             background-color: var(--parchment);
             background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
@@ -117,77 +64,61 @@
             );
         }
 
+        .ink-reveal {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .ink-reveal.manifested {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         .sentence-btn {
-            display: inline;
-            padding: 2px 4px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-bottom: 2px solid transparent;
+            display: inline; padding: 2px 4px; border-radius: 4px; cursor: pointer; transition: all 0.3s ease; border-bottom: 2px solid transparent;
         }
-
-        .sentence-btn:hover {
-            background: rgba(168, 85, 247, 0.1);
-            border-bottom-color: var(--amethyst);
-        }
-
-        .sentence-btn.selected {
-            background: rgba(168, 85, 247, 0.2);
-            border-bottom: 2px solid var(--amethyst);
-            font-weight: 600;
-        }
+        .sentence-btn:hover { background: rgba(168, 85, 247, 0.1); border-bottom-color: var(--amethyst); }
+        .sentence-btn.selected { background: rgba(168, 85, 247, 0.2); border-bottom: 2px solid var(--amethyst); font-weight: 600; }
 
         .res-correct { background-color: #dcfce7 !important; border-bottom: 2px solid var(--correct-hit) !important; color: #166534; }
         .res-wrong { background-color: #fee2e2 !important; border-bottom: 2px solid var(--wrong-hit) !important; color: #991b1b; }
         .res-missed { background-color: #fef3c7 !important; border-bottom: 2px solid var(--incorrect-missed) !important; color: #92400e; }
 
-        .glow-title {
-            color: var(--electric-moss);
-            text-shadow: 0 0 20px rgba(190, 242, 100, 0.7);
-        }
-
-        .cursive { font-family: 'Great Vibes', cursive; }
+        .glow-title { color: var(--electric-moss); text-shadow: 0 0 20px rgba(190, 242, 100, 0.7); }
         .fancy { font-family: 'Cinzel Decorative', serif; }
+        .cursive { font-family: 'Great Vibes', cursive; }
+
+        .btn-generate {
+            font-family: 'Cinzel Decorative';
+            font-size: 0.6rem;
+            padding: 4px 12px;
+            border: 1px solid #96b63f;
+            border-radius: 4px;
+            color: #4f6022;
+            transition: opacity 0.4s ease;
+            margin-left: 10px;
+            background: rgba(255,255,255,0.3);
+            opacity: 1;
+        }
+        .btn-generate:hover { background: #96b63f; color: white; box-shadow: 0 0 10px #96b63f; }
 
         .btn-glimmer {
-            background: linear-gradient(135deg, #b63fa4, #bef264); 
-            color: white;
-            border-radius: 30px;
-            padding: 12px 30px;
-            font-family: 'Cinzel Decorative';
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+            background: linear-gradient(135deg, #b63fa4, #bef264); color: white; border-radius: 30px;
+            padding: 12px 30px; font-family: 'Cinzel Decorative'; font-size: 0.8rem; text-transform: uppercase;
+            letter-spacing: 0.1rem; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
         }
 
-        .btn-glimmer:hover:not(:disabled) {
-            box-shadow: 0 0 30px rgba(190, 242, 100, 0.6);
-            transform: translateY(-2px);
-        }
-
-        .btn-glimmer:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%; height: 6px; background: #4f6022; border-radius: 3px;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 18px; width: 18px; border-radius: 50%; background: var(--electric-moss);
-            margin-top: -6px; cursor: pointer; box-shadow: 0 0 10px var(--electric-moss);
-        }
-
-        .spore {
-            position: absolute; border-radius: 50%; pointer-events: none; z-index: 100;
-        }
+        .spore { position: absolute; border-radius: 50%; pointer-events: none; z-index: 100; }
     </style>
 </head>
 <body class="p-4 md:p-12 relative">
 
     <div class="max-w-6xl mx-auto z-10 relative">
-        <header class="text-center mb-6">
-            <h1 class="fancy text-6xl glow-title mb-2">Hallucination Identification</h1>
+        <header class="text-center mb-10">
+            <div class="title-container">
+                <h1 class="fancy text-6xl glow-title">Hallucination Identification</h1>
+            </div><br><br>
             <p class="cursive text-4xl text-purple-300">Identify our generated fabrications</p>
         </header>
 
@@ -201,13 +132,10 @@
         </nav>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            
             <aside class="lg:col-span-4 space-y-8">
                 <div class="scrap-page p-8 rotate-[-2deg] shadow-xl">
                     <h3 class="fancy text-xl text-purple-950 mb-4 border-b border-stone-300 pb-2">Instructions</h3>
-                    <p class="text-stone-700 italic text-sm mb-4">
-                        Click the sentences you believe to be **factually or logically false**. 
-                    </p>
+                    <p class="text-stone-700 italic text-sm mb-4">Click the sentences you believe to be **false**. Use the "Generate Text" button on the parchment to begin.</p>
                     
                     <div class="space-y-4">
                         <label class="block text-xs uppercase tracking-widest text-stone-500 font-bold">Confidence Level</label>
@@ -218,26 +146,26 @@
                         </div>
                     </div>
 
-                    <button onclick="submitGame()" id="submitBtn" class="btn-glimmer w-full mt-8">Submit Judgment</button>
+                    <button onclick="submitGame()" id="submitBtn" class="btn-glimmer w-full mt-8" disabled>Submit Judgment</button>
                 </div>
 
-                <div id="resultBox" class="magic-border hidden animate-fade-in">
+                <div id="resultBox" class="p-6 bg-[#230b42] rounded-xl border-2 border-dashed border-lime-400 hidden">
                     <h4 class="fancy text-[#bef264] text-center text-2xl mb-2">The Verdict</h4>
-                    <p id="scoreText" class="text-white text-center text-3xl font-bold mb-2">0 / 0</p>
-                    <p id="feedbackText" class="text-purple-200 text-center italic text-sm"></p>
-                    <button onclick="location.reload()" class="w-full mt-4 text-[10px] uppercase tracking-widest text-lime-400 underline">Retry the Trial</button>
+                    <p id="scoreText" class="text-white text-center text-3xl font-bold mb-2"></p>
+                    <p id="feedbackText" class="text-purple-200 text-center italic text-sm mb-4"></p>
+                    <button onclick="resetParchment()" class="w-full text-[10px] uppercase tracking-widest text-lime-400 underline">Wipe Parchment & Retry</button>
                 </div>
             </aside>
 
             <main class="lg:col-span-8">
-                <section class="scrap-page relative p-12 lg:p-16 text-stone-900">
-                    <div class="flex justify-between items-start mb-8 border-b border-stone-200 pb-4">
-                        <span class="fancy text-xs tracking-widest text-stone-400 uppercase">[BIOLOGY LEVEL]</span>
-                        <div class="text-2xl opacity-30">❧</div>
+                <section class="scrap-page relative p-12 lg:p-16 text-stone-900 min-h-[400px]">
+                    <div class="flex items-center mb-8 border-b border-stone-200 pb-4">
+                        <span class="fancy text-xs tracking-widest text-stone-400 uppercase">[BIOLOGY LEVEL 1]</span>
+                        <button id="genBtn" onclick="revealText()" class="btn-generate">Generate Text</button>
                     </div>
 
-                    <div id="gameText" class="text-2xl leading-relaxed italic">
-                        <span class="sentence-btn" data-id="1" data-fake="false">Mitochondria are the powerhouses of the cell, converting oxygen and nutrients into adenosine triphosphate.</span>
+                    <div id="gameContainer" class="ink-reveal text-2xl leading-relaxed italic">
+                        <span class="sentence-btn" data-id="1" data-fake="false">Mitochondria are the powerhouses of the cell, converting oxygen and nutrients into ATP.</span>
                         <span class="sentence-btn" data-id="2" data-fake="true">Human DNA is composed of a triple-helix structure that allows for the spontaneous regeneration of lost limbs.</span>
                         <span class="sentence-btn" data-id="3" data-fake="false">Chlorophyll is the pigment responsible for the green color in plants and is essential for photosynthesis.</span>
                         <span class="sentence-btn" data-id="4" data-fake="true">The human heart is the only muscle in the body that can function without a continuous supply of oxygenated blood.</span>
@@ -246,7 +174,7 @@
                     </div>
 
                     <div class="mt-12 flex justify-center space-x-6 border-t border-stone-200 pt-8">
-                        <span class="text-3xl opacity-20">✨</span>
+                        <span id="magicSpark" class="text-3xl opacity-0 transition-opacity duration-1000">✨</span>
                     </div>
                 </section>
             </main>
@@ -254,13 +182,34 @@
     </div>
 
     <script>
-        // --- GAME LOGIC ---
         const sentences = document.querySelectorAll('.sentence-btn');
+        const gameContainer = document.getElementById('gameContainer');
+        const submitBtn = document.getElementById('submitBtn');
+        const genBtn = document.getElementById('genBtn');
+        const spark = document.getElementById('magicSpark');
+        const resultBox = document.getElementById('resultBox');
         let selectedIds = new Set();
+
+        function revealText() {
+            genBtn.style.opacity = '0';
+            genBtn.style.pointerEvents = 'none';
+            
+            setTimeout(() => {
+                genBtn.style.display = 'none';
+                gameContainer.classList.add('manifested');
+                spark.classList.remove('opacity-0');
+                submitBtn.disabled = false;
+                
+                const rect = gameContainer.getBoundingClientRect();
+                for(let i=0; i<15; i++) {
+                    spawnSpore(rect.left + (Math.random() * rect.width), rect.top + (Math.random() * rect.height), true);
+                }
+            }, 400);
+        }
 
         sentences.forEach(btn => {
             btn.addEventListener('click', () => {
-                if (document.getElementById('submitBtn').disabled) return;
+                if (submitBtn.disabled) return;
                 const id = btn.getAttribute('data-id');
                 if (selectedIds.has(id)) {
                     selectedIds.delete(id);
@@ -275,54 +224,57 @@
         function submitGame() {
             let correctCount = 0;
             const total = sentences.length;
-            document.getElementById('submitBtn').disabled = true;
+            submitBtn.disabled = true;
 
             sentences.forEach(btn => {
                 const isFake = btn.getAttribute('data-fake') === 'true';
                 const isSelected = selectedIds.has(btn.getAttribute('data-id'));
-                
-                if (isFake && isSelected) {
-                    btn.classList.add('res-correct');
-                    correctCount++;
-                } else if (!isFake && isSelected) {
-                    btn.classList.add('res-wrong');
-                } else if (isFake && !isSelected) {
-                    btn.classList.add('res-missed');
-                } else {
-                    correctCount++;
-                }
+                if (isFake && isSelected) { btn.classList.add('res-correct'); correctCount++; }
+                else if (!isFake && isSelected) { btn.classList.add('res-wrong'); }
+                else if (isFake && !isSelected) { btn.classList.add('res-missed'); }
+                else { correctCount++; }
             });
 
-            const confidence = document.getElementById('confidenceSlider').value;
-            document.getElementById('resultBox').classList.remove('hidden');
+            resultBox.classList.remove('hidden');
             document.getElementById('scoreText').innerText = `${correctCount} / ${total}`;
-            
-            let feedback = correctCount === total ? "Your sight is perfect." : "Some illusions still linger.";
-            document.getElementById('feedbackText').innerText = `${feedback} (Confidence: ${confidence}%)`;
+            document.getElementById('feedbackText').innerText = correctCount === total ? "The truth is revealed." : "Illusions remain.";
         }
 
-        // --- VISUAL FX ---
+        function resetParchment() {
+            gameContainer.classList.remove('manifested');
+            resultBox.classList.add('hidden');
+            spark.classList.add('opacity-0');
+            
+            setTimeout(() => {
+                sentences.forEach(btn => {
+                    btn.classList.remove('selected', 'res-correct', 'res-wrong', 'res-missed');
+                });
+                selectedIds.clear();
+
+                genBtn.style.display = 'inline-block';
+                setTimeout(() => { 
+                    genBtn.style.opacity = '1'; 
+                    genBtn.style.pointerEvents = 'auto';
+                }, 50);
+                submitBtn.disabled = true;
+            }, 1500); 
+        }
+
         document.addEventListener('mousemove', (e) => {
             if (Math.random() > 0.93) spawnSpore(e.clientX, e.clientY);
         });
 
-        function spawnSpore(x, y) {
+        function spawnSpore(x, y, isBurst = false) {
             const spore = document.createElement('div');
             spore.className = 'spore';
             const size = (Math.random() * 4 + 2) + 'px';
-            spore.style.width = size;
-            spore.style.height = size;
-            spore.style.left = x + 'px';
-            spore.style.top = y + 'px';
+            spore.style.width = size; spore.style.height = size;
+            spore.style.left = x + 'px'; spore.style.top = y + window.scrollY + 'px';
             const colors = ['#deffa5', '#a855f7', '#ffd700'];
             spore.style.background = colors[Math.floor(Math.random() * colors.length)];
             spore.style.boxShadow = `0 0 10px ${spore.style.background}`;
             document.body.appendChild(spore);
-
-            const anim = spore.animate([
-                { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-                { transform: `translate(${(Math.random()-0.5)*100}px, -100px) scale(0)`, opacity: 0 }
-            ], { duration: 1500 });
+            const anim = spore.animate([{ opacity: 1 }, { transform: `translate(${(Math.random()-0.5)*100}px, -100px)`, opacity: 0 }], { duration: 1500 });
             anim.onfinish = () => spore.remove();
         }
     </script>
