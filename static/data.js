@@ -15,6 +15,13 @@ export const truthStore = [
     research_source: "Harvard Medical School"
   },
   {
+    id: "bio_03",
+    topic: "Human Biology",
+    statement: "Hair and nails continue to grow after a person dies.",
+    true_fact: "Hair and nails do not grow after death; the appearance of growth is due to skin dehydration and shrinkage.",
+    research_source: "American Academy of Dermatology"
+  },
+  {
     id: "chem_01",
     topic: "Chemistry",
     statement: "Gold is the most expensive metal on Earth.",
@@ -29,6 +36,13 @@ export const truthStore = [
     research_source: "American Chemical Society"
   },
   {
+    id: "chem_03",
+    topic: "Chemistry",
+    statement: "Mixing any chemicals always produces a dangerous reaction.",
+    true_fact: "Many chemicals can be safely combined; dangerous reactions depend on specific substances and conditions.",
+    research_source: "American Chemical Society"
+  },
+  {
     id: "phys_01",
     topic: "Physics",
     statement: "Heavier objects always fall faster than lighter ones.",
@@ -36,11 +50,25 @@ export const truthStore = [
     research_source: "NASA / Galileo experiments"
   },
   {
+    id: "phys_02",
+    topic: "Physics",
+    statement: "Objects in motion will eventually stop even without external forces.",
+    true_fact: "According to Newton’s First Law, an object in motion stays in motion unless acted upon by an external force.",
+    research_source: "NASA"
+  },
+  {
     id: "astro_01",
     topic: "Astronomy",
     statement: "The Great Wall of China is visible from space with the naked eye.",
     true_fact: "Astronauts have confirmed the Great Wall is not easily visible from low Earth orbit without aid.",
     research_source: "NASA"
+  },
+  {
+    id: "astro_02",
+    topic: "Astronomy",
+    statement: "The Sun is a unique star unlike any other in the universe.",
+    true_fact: "The Sun is an average-sized star; many similar stars exist throughout the galaxy.",
+    research_source: "NASA / ESA"
   },
   {
     id: "geo_01",
@@ -57,6 +85,20 @@ export const truthStore = [
     research_source: "Gemological Institute of America"
   },
   {
+    id: "geo_03",
+    topic: "Geography",
+    statement: "The equator is the hottest place on Earth at all times.",
+    true_fact: "Some deserts away from the equator can reach higher temperatures due to atmospheric conditions.",
+    research_source: "National Geographic"
+  },
+  {
+    id: "geo_04",
+    topic: "Geology",
+    statement: "Earthquakes only happen at night because it is cooler.",
+    true_fact: "Earthquakes are caused by tectonic plate movements and occur independently of time or temperature.",
+    research_source: "US Geological Survey"
+  },
+  {
     id: "hist_01",
     topic: "History",
     statement: "Napoleon Bonaparte was extremely short.",
@@ -69,6 +111,13 @@ export const truthStore = [
     statement: "People in the Middle Ages believed the Earth was flat.",
     true_fact: "Educated people in the Middle Ages widely understood that the Earth was spherical.",
     research_source: "University of Cambridge / Historical scholarship"
+  },
+  {
+    id: "hist_03",
+    topic: "History",
+    statement: "The pyramids of Egypt were built by slaves.",
+    true_fact: "Evidence suggests the pyramids were built by skilled laborers who were paid and housed.",
+    research_source: "Smithsonian Magazine / Egyptology research"
   },
   {
     id: "lit_01",
@@ -85,6 +134,13 @@ export const truthStore = [
     research_source: "Narrative theory studies"
   },
   {
+    id: "lit_03",
+    topic: "Literature",
+    statement: "If a book is popular, it must be well-written.",
+    true_fact: "This is an appeal to popularity fallacy; popularity does not necessarily reflect literary quality.",
+    research_source: "Critical thinking / Literary analysis"
+  },
+  {
     id: "pol_01",
     topic: "Politics",
     statement: "If one policy fails, all policies from that political party must be bad.",
@@ -97,6 +153,13 @@ export const truthStore = [
     statement: "You're either completely for this law or completely against progress.",
     true_fact: "This is a false dilemma; it ignores nuanced or alternative positions.",
     research_source: "Critical thinking / Informal logic"
+  },
+  {
+    id: "pol_03",
+    topic: "Politics",
+    statement: "If a law benefits one group, it must harm all others.",
+    true_fact: "This is a false zero-sum assumption; policies can benefit multiple groups simultaneously.",
+    research_source: "Political science / Economics"
   },
   {
     id: "health_01",
@@ -125,5 +188,12 @@ export const truthStore = [
     statement: "If an algorithm works once, it will always work for all inputs.",
     true_fact: "This is a logical fallacy; correctness must be proven across all cases, not a single example.",
     research_source: "Algorithm analysis / CS theory"
+  },
+  {
+    id: "cs_03",
+    topic: "Computer Science",
+    statement: "Computers can solve any problem instantly if they are powerful enough.",
+    true_fact: "Some problems are computationally intractable or undecidable, regardless of computing power.",
+    research_source: "Computational complexity theory"
   }
 ];
