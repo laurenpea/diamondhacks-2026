@@ -1,9 +1,9 @@
-// server.js
+
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { truthStore } from "data.js";
+import { truthStore } from "./data.js";
 
 dotenv.config();
 const app = express();
