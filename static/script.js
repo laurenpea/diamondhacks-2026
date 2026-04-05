@@ -2,7 +2,7 @@ let currentFactId = null;
 let selectedSentence = null;
 
 // 1. Fetch from your Node.js server
-document.getElementById('generate-btn').addEventListener('click', async () => {
+document.getElementById('btn-generate').addEventListener('click', async () => {
   const response = await fetch('http://localhost:3000/api/generate');
   const data = await response.json();
   

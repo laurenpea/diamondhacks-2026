@@ -160,17 +160,12 @@
             <main class="lg:col-span-8">
                 <section class="scrap-page relative p-12 lg:p-16 text-stone-900 min-h-[400px]">
                     <div class="flex items-center mb-8 border-b border-stone-200 pb-4">
-                        <span class="fancy text-xs tracking-widest text-stone-400 uppercase">[BIOLOGY LEVEL 1]</span>
+                        <span id="topicLabel" class="fancy text-xs tracking-widest text-stone-400 uppercase">[LEVEL 1 CHALLENGE]</span>
                         <button id="genBtn" onclick="revealText()" class="btn-generate">Generate Text</button>
                     </div>
 
                     <div id="gameContainer" class="ink-reveal text-2xl leading-relaxed italic">
-                        <span class="sentence-btn" data-id="1" data-fake="false">Mitochondria are the powerhouses of the cell, converting oxygen and nutrients into ATP.</span>
-                        <span class="sentence-btn" data-id="2" data-fake="true">Human DNA is composed of a triple-helix structure that allows for the spontaneous regeneration of lost limbs.</span>
-                        <span class="sentence-btn" data-id="3" data-fake="false">Chlorophyll is the pigment responsible for the green color in plants and is essential for photosynthesis.</span>
-                        <span class="sentence-btn" data-id="4" data-fake="true">The human heart is the only muscle in the body that can function without a continuous supply of oxygenated blood.</span>
-                        <span class="sentence-btn" data-id="5" data-fake="false">Red blood cells carry oxygen throughout the body using a protein called hemoglobin.</span>
-                        <span class="sentence-btn" data-id="6" data-fake="true">Neurons communicate exclusively through sound waves, which is why thinking hard can make your ears ring.</span>
+                        <p id="placeholderText" class="text-stone-500 not-italic text-lg">The parchment is blank. Generate a new challenge to reveal the text.</p>
                     </div>
 
                     <div class="mt-12 flex justify-center space-x-6 border-t border-stone-200 pt-8">
@@ -182,15 +177,74 @@
     </div>
 
     <script>
-        const sentences = document.querySelectorAll('.sentence-btn');
         const gameContainer = document.getElementById('gameContainer');
         const submitBtn = document.getElementById('submitBtn');
         const genBtn = document.getElementById('genBtn');
         const spark = document.getElementById('magicSpark');
         const resultBox = document.getElementById('resultBox');
+        const topicLabel = document.getElementById('topicLabel');
         let selectedIds = new Set();
+        let sentenceButtons = [];
 
-        function revealText() {
+        function attachSentenceHandlers() {
+            sentenceButtons = Array.from(document.querySelectorAll('.sentence-btn'));
+
+            sentenceButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (submitBtn.disabled) return;
+                    const id = btn.getAttribute('data-id');
+                    if (selectedIds.has(id)) {
+                        selectedIds.delete(id);
+                        btn.classList.remove('selected');
+                    } else {
+                        selectedIds.add(id);
+                        btn.classList.add('selected');
+                    }
+                });
+            });
+        }
+
+        function renderSentences(sentences) {
+            gameContainer.innerHTML = '';
+
+            sentences.forEach(sentence => {
+                const span = document.createElement('span');
+                span.className = 'sentence-btn';
+                span.setAttribute('data-id', sentence.id);
+                span.setAttribute('data-fake', String(sentence.isFalse));
+                span.textContent = `${sentence.text} `;
+                gameContainer.appendChild(span);
+            });
+
+            attachSentenceHandlers();
+        }
+
+        async function revealText() {
+            genBtn.disabled = true;
+
+            try {
+                const response = await fetch('http://localhost:3000/api/generate');
+
+                if (!response.ok) {
+                    throw new Error('Failed to generate text');
+                }
+
+                const data = await response.json();
+                selectedIds.clear();
+                renderSentences(data.sentences);
+                topicLabel.innerText = `[${data.topic.toUpperCase()} LEVEL 1]`;
+
+                resultBox.classList.add('hidden');
+                document.getElementById('scoreText').innerText = '';
+                document.getElementById('feedbackText').innerText = '';
+
+            } catch (error) {
+                gameContainer.innerHTML = '<p class="text-red-700 not-italic text-lg">The parchment failed to reveal. Make sure the API server is running on port 3000.</p>';
+                topicLabel.innerText = '[LEVEL 1 CHALLENGE]';
+                genBtn.disabled = false;
+                return;
+            }
+
             genBtn.style.opacity = '0';
             genBtn.style.pointerEvents = 'none';
             
@@ -207,26 +261,12 @@
             }, 400);
         }
 
-        sentences.forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (submitBtn.disabled) return;
-                const id = btn.getAttribute('data-id');
-                if (selectedIds.has(id)) {
-                    selectedIds.delete(id);
-                    btn.classList.remove('selected');
-                } else {
-                    selectedIds.add(id);
-                    btn.classList.add('selected');
-                }
-            });
-        });
-
         function submitGame() {
             let correctCount = 0;
-            const total = sentences.length;
+            const total = sentenceButtons.length;
             submitBtn.disabled = true;
 
-            sentences.forEach(btn => {
+            sentenceButtons.forEach(btn => {
                 const isFake = btn.getAttribute('data-fake') === 'true';
                 const isSelected = selectedIds.has(btn.getAttribute('data-id'));
                 if (isFake && isSelected) { btn.classList.add('res-correct'); correctCount++; }
@@ -246,12 +286,16 @@
             spark.classList.add('opacity-0');
             
             setTimeout(() => {
-                sentences.forEach(btn => {
+                sentenceButtons.forEach(btn => {
                     btn.classList.remove('selected', 'res-correct', 'res-wrong', 'res-missed');
                 });
                 selectedIds.clear();
+                sentenceButtons = [];
+                gameContainer.innerHTML = '<p id="placeholderText" class="text-stone-500 not-italic text-lg">The parchment is blank. Generate a new challenge to reveal the text.</p>';
+                topicLabel.innerText = '[LEVEL 1 CHALLENGE]';
 
                 genBtn.style.display = 'inline-block';
+                genBtn.disabled = false;
                 setTimeout(() => { 
                     genBtn.style.opacity = '1'; 
                     genBtn.style.pointerEvents = 'auto';
