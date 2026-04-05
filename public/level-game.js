@@ -1,4 +1,5 @@
 const LEVEL_GAME_API = "http://localhost:3000/api/generate";
+const LOCAL_SCORE_KEY = "kp-total-points";
 
 const config = window.levelGameConfig || { level: 1, accentVar: "--electric-moss" };
 const dot = document.getElementById("cursor-dot");
@@ -16,10 +17,48 @@ let correctionsBox = document.getElementById("correctionsBox");
 let selectedIds = new Set();
 let challengeSentences = [];
 let challengeCorrections = [];
+let challengeSubmitted = false;
 let mouseX = 0;
 let mouseY = 0;
 let ringX = 0;
 let ringY = 0;
+
+function getStoredPoints() {
+  const rawValue = localStorage.getItem(LOCAL_SCORE_KEY);
+  const points = Number.parseInt(rawValue ?? "0", 10);
+  return Number.isFinite(points) ? points : 0;
+}
+
+function setStoredPoints(points) {
+  localStorage.setItem(LOCAL_SCORE_KEY, String(points));
+}
+
+function updatePointsBadge() {
+  let badge = document.getElementById("pointsBadge");
+
+  if (!badge) {
+    badge = document.createElement("div");
+    badge.id = "pointsBadge";
+    badge.className = "fixed top-4 right-4 z-50 rounded-full border border-white/20 bg-black/60 px-4 py-2 text-right shadow-lg backdrop-blur-md";
+    badge.innerHTML = `
+      <div class="text-[10px] uppercase tracking-[0.25em] text-stone-300">Stored Points</div>
+      <div id="pointsBadgeValue" class="text-lg font-bold text-white">0 KP</div>
+    `;
+    document.body.appendChild(badge);
+  }
+
+  const badgeValue = document.getElementById("pointsBadgeValue");
+  if (badgeValue) {
+    badgeValue.textContent = `${getStoredPoints()} KP`;
+  }
+}
+
+function addPointsToStorage(points) {
+  const updatedTotal = getStoredPoints() + points;
+  setStoredPoints(updatedTotal);
+  updatePointsBadge();
+  return updatedTotal;
+}
 
 function ensureCorrectionsBox() {
   if (correctionsBox) return correctionsBox;
@@ -117,6 +156,7 @@ function createSentenceButton(sentence) {
 function renderChallenge(paragraphs) {
   gameContainer.innerHTML = "";
   selectedIds = new Set();
+  challengeSubmitted = false;
   clearResults();
 
   paragraphs.forEach((paragraph, index) => {
@@ -164,7 +204,7 @@ async function generateChallenge() {
 }
 
 function submitGame() {
-  if (challengeSentences.length === 0) return;
+  if (challengeSentences.length === 0 || challengeSubmitted) return;
 
   const confidence = parseInt(document.getElementById("confidenceSlider").value, 10);
   const multiplier = 0.5 + (confidence / 100);
@@ -198,6 +238,8 @@ function submitGame() {
     }
   }
 
+  challengeSubmitted = true;
+  const storedTotal = addPointsToStorage(finalScore);
   scoreText.textContent = `${finalScore} KP`;
 
   let confidenceText = "";
@@ -209,7 +251,7 @@ function submitGame() {
     confidenceText = `<span class="text-purple-200">Balanced Read:</span> You kept confidence and skepticism in tension.`;
   }
 
-  pointsBreakdown.innerHTML = `${confidenceText}<div class="mt-2 pt-2 border-t border-white/5 opacity-60">Confidence Multiplier: x${multiplier.toFixed(2)}</div>`;
+  pointsBreakdown.innerHTML = `${confidenceText}<div class="mt-2 pt-2 border-t border-white/5 opacity-60">Confidence Multiplier: x${multiplier.toFixed(2)}</div><div class="mt-2 pt-2 border-t border-white/5 opacity-60">Stored Total: ${storedTotal} KP</div>`;
 
   if (finalScore > 70) feedbackText.textContent = "Excellent analysis. You separated strong information from hallucination.";
   else if (finalScore > 30) feedbackText.textContent = "Good instincts. A few details slipped by, but your read was mostly solid.";
@@ -251,4 +293,5 @@ function submitGame() {
 window.generateChallenge = generateChallenge;
 window.submitGame = submitGame;
 
+updatePointsBadge();
 bindInteractiveCursor();

@@ -161,11 +161,10 @@ Subject area: ${config.subjectLabel}.
 Write exactly ${config.sentenceCount} standalone sentences arranged as ${config.paragraphCount} paragraph(s).
 Stay strictly within ${config.subjectLabel}. Do not drift into unrelated subjects.
 
-False statements to include verbatim as complete sentences exactly once each:
+False statements to include verbatim but disguised in complete sentences exactly once each:
 ${falseStatementBlock}
 
-Use these true facts as source material for the remaining factual sentences. You may paraphrase them into fresh wording, but keep them accurate:
-${trueFactBlock}
+Use true facts for the other sentences that are relevant to ${config.subjectLabel}.
 
 Requirements:
 - Return valid JSON only.

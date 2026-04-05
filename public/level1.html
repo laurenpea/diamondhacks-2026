@@ -197,7 +197,7 @@
                         </div>
                     </div>
 
-                    <button onclick="submitGame()" id="submitBtn" class="w-full mt-8 py-3 bg-gradient-to-r from-purple-900 to-lime-900 text-white rounded-full font-bold tracking-widest text-xs uppercase shadow-lg disabled:opacity-50 transition-transform active:scale-95" disabled>Submit Judgment</button>
+                    <button type="button" onclick="submitGame()" id="submitBtn" class="w-full mt-8 py-3 bg-gradient-to-r from-purple-900 to-lime-900 text-white rounded-full font-bold tracking-widest text-xs uppercase shadow-lg disabled:opacity-50 transition-transform active:scale-95" disabled>Submit Judgment</button>
 
                 </div>
             </aside>
@@ -211,7 +211,7 @@
 
                     <div class="flex items-center mb-8 border-b border-stone-200 pb-4">
                         <span class="text-sm tracking-widest text-stone-600 uppercase font-bold">The World Of Biology</span>
-                        <button id="genBtn" onclick="generateChallenge()" class="ml-4 px-3 py-1 border border-stone-400 rounded text-[20px] uppercase font-bold hover:bg-stone-800 hover:text-white transition-all">Generate Text</button>
+                        <button type="button" id="genBtn" onclick="generateChallenge()" class="ml-4 px-3 py-1 border border-stone-400 rounded text-[20px] uppercase font-bold hover:bg-stone-800 hover:text-white transition-all">Generate Text</button>
                     </div>
 
                     <div id="gameContainer" class="ink-reveal text-2xl leading-relaxed italic">
@@ -231,7 +231,7 @@
                         <p id="feedbackText" class="text-purple-100 italic text-sm mt-4"></p>
                     </div>
                     <div class="lg:w-44 lg:shrink-0">
-                        <button onclick="location.reload()" class="w-full py-2 bg-lime-900/40 text-[10px] uppercase tracking-widest text-lime-400 border border-lime-400/30 rounded hover:bg-lime-400 hover:text-black transition-all">Reset Level</button>
+                        <button type="button" onclick="location.reload()" class="w-full py-2 bg-lime-900/40 text-[10px] uppercase tracking-widest text-lime-400 border border-lime-400/30 rounded hover:bg-lime-400 hover:text-black transition-all">Reset Level</button>
                     </div>
                 </div>
             </div>

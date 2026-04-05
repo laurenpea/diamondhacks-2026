@@ -51,13 +51,13 @@
                     </div>
                     <div class="mb-8"><label class="block text-xs uppercase tracking-widest text-slate-700 font-bold mb-3">Stabilized Signals</label><div class="flex gap-3"><div id="jar-1" class="glass-vial"></div><div id="jar-2" class="glass-vial"></div><div id="jar-3" class="glass-vial"></div></div></div>
                     <div class="space-y-4 mb-8"><label class="block text-xs uppercase tracking-widest text-slate-700 font-bold">Confidence Level</label><input type="range" id="confidenceSlider" min="0" max="100" value="50" class="w-full accent-blue-700"><div class="flex justify-between text-[10px] text-slate-500 uppercase font-bold"><span>Doubtful</span><span>Certain</span></div></div>
-                    <button onclick="submitGame()" id="submitBtn" class="w-full mt-8 py-3 bg-gradient-to-r from-blue-900 to-cyan-900 text-white rounded-full font-bold tracking-widest text-xs uppercase shadow-lg disabled:opacity-50 transition-transform active:scale-95" disabled>Submit Judgment</button>
+                    <button type="button" onclick="submitGame()" id="submitBtn" class="w-full mt-8 py-3 bg-gradient-to-r from-blue-900 to-cyan-900 text-white rounded-full font-bold tracking-widest text-xs uppercase shadow-lg disabled:opacity-50 transition-transform active:scale-95" disabled>Submit Judgment</button>
                 </div>
             </aside>
             <main class="lg:col-span-8">
                 <section class="scrap-page relative p-12 lg:p-16 min-h-[450px]">
                     <svg class="constellation" viewBox="0 0 100 100"><circle cx="18" cy="32" r="2" fill="#3457d5"/><circle cx="42" cy="18" r="2" fill="#3457d5"/><circle cx="68" cy="34" r="2" fill="#3457d5"/><circle cx="55" cy="62" r="2" fill="#3457d5"/><circle cx="25" cy="70" r="2" fill="#3457d5"/><path d="M18,32 L42,18 L68,34 L55,62 L25,70 Z" fill="none" stroke="#3457d5" stroke-width="1.5"/></svg>
-                    <div class="flex items-center mb-8 border-b border-slate-400 pb-4"><span class="text-sm tracking-widest text-slate-700 uppercase font-bold">The World Of Physics And Astronomy</span><button id="genBtn" onclick="generateChallenge()" class="ml-4 px-3 py-1 border border-slate-500 rounded text-[20px] uppercase font-bold hover:bg-slate-900 hover:text-white transition-all">Generate Text</button></div>
+                    <div class="flex items-center mb-8 border-b border-slate-400 pb-4"><span class="text-sm tracking-widest text-slate-700 uppercase font-bold">The World Of Physics And Astronomy</span><button type="button" id="genBtn" onclick="generateChallenge()" class="ml-4 px-3 py-1 border border-slate-500 rounded text-[20px] uppercase font-bold hover:bg-slate-900 hover:text-white transition-all">Generate Text</button></div>
                     <div id="gameContainer" class="ink-reveal text-2xl leading-relaxed italic">
                         <p id="loadingText" class="hidden text-slate-700 not-italic text-lg">Generating challenge...</p>
                     </div>
@@ -75,7 +75,7 @@
                         <p id="feedbackText" class="text-cyan-50 italic text-sm mt-4"></p>
                     </div>
                     <div class="lg:w-44 lg:shrink-0">
-                        <button onclick="location.reload()" class="w-full py-2 bg-sky-950/40 text-[10px] uppercase tracking-widest text-cyan-300 border border-cyan-300/30 rounded hover:bg-cyan-300 hover:text-black transition-all">Reset Level</button>
+                        <button type="button" onclick="location.reload()" class="w-full py-2 bg-sky-950/40 text-[10px] uppercase tracking-widest text-cyan-300 border border-cyan-300/30 rounded hover:bg-cyan-300 hover:text-black transition-all">Reset Level</button>
                     </div>
                 </div>
             </div>
