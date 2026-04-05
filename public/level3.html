@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hallucination Identification - Physics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root { --accent: #72e3ff; --secondary: #3457d5; --deep-tone: #081425; --paper: #d8e8f1; --correct-hit: #0dab47; --wrong-hit: #b32929; --incorrect-missed: #ffc518; }
+        body { background-color: var(--deep-tone); color: #d8f3ff; font-family: 'EB Garamond', serif; overflow-x: hidden; min-height: 100vh; cursor: none; }
+        .scene { position: fixed; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(114, 227, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 78% 22%, rgba(52, 87, 213, 0.22) 0%, transparent 36%), radial-gradient(circle at 50% 90%, rgba(114, 227, 255, 0.08) 0%, transparent 30%); background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png"); z-index: -2; }
+        .noise-overlay { position: fixed; inset: -50%; background-image: url("https://www.transparenttextures.com/patterns/stardust.png"); opacity: 0.15; pointer-events: none; z-index: -1; }
+        .aether-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; position: relative; z-index: 20; }
+        .nav-link { font-family: 'Cinzel Decorative', serif; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.12rem; color: #9ceeff; padding: 0.5rem 1rem; border: 1px solid rgba(114, 227, 255, 0.28); background: rgba(3, 18, 36, 0.56); backdrop-filter: blur(5px); border-radius: 4px; transition: all 0.4s ease; }
+        .nav-link:hover { color: white; border-color: var(--accent); box-shadow: 0 0 20px rgba(114, 227, 255, 0.3); transform: translateY(-2px); }
+        .scrap-page { background-color: var(--paper); background-image: url("https://www.transparenttextures.com/patterns/diamond-upholstery.png"); color: #132030; clip-path: polygon(0% 4%, 10% 1%, 18% 4%, 28% 1%, 36% 5%, 48% 1%, 58% 4%, 70% 2%, 82% 5%, 100% 2%, 97% 16%, 100% 32%, 98% 47%, 100% 64%, 97% 80%, 100% 97%, 83% 100%, 67% 97%, 54% 100%, 38% 97%, 22% 100%, 0% 96%, 3% 82%, 0% 66%, 2% 51%, 0% 36%, 3% 20%); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45); }
+        #cursor-dot { position: fixed; width: 6px; height: 6px; background: white; border-radius: 50%; pointer-events: none; z-index: 1000; mix-blend-mode: difference; }
+        #cursor-ring { position: fixed; width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%; pointer-events: none; z-index: 999; transition: transform 0.2s ease-out, border-color 0.2s; }
+        .sentence-btn { display: inline; padding: 2px 4px; border-radius: 4px; cursor: pointer; transition: all 0.3s ease; border-bottom: 2px solid transparent; }
+        .sentence-btn:hover { background: rgba(52, 87, 213, 0.1); border-bottom-color: var(--secondary); }
+        .sentence-btn.selected { background: rgba(114, 227, 255, 0.14); border-bottom: 2px solid var(--secondary); font-weight: 600; }
+        .res-correct { background-color: #dcfce7 !important; border-bottom: 2px solid var(--correct-hit) !important; color: #166534 !important; font-weight: bold; }
+        .res-wrong { background-color: #fee2e2 !important; border-bottom: 2px solid var(--wrong-hit) !important; color: #991b1b !important; font-weight: bold; }
+        .res-missed { background-color: #fef3c7 !important; border-bottom: 2px solid var(--incorrect-missed) !important; color: #92400e !important; font-weight: bold; }
+        .glow-title { font-family: 'Cinzel Decorative', serif; background: linear-gradient(to bottom, #f6fdff 35%, var(--accent) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 30px rgba(114, 227, 255, 0.22); }
+        .ink-reveal { opacity: 0; transition: opacity 1.2s ease; pointer-events: none; }
+        .ink-reveal.manifested { opacity: 1; pointer-events: auto; }
+        .legend-tag { padding: 0 4px; border-radius: 4px; display: inline-block; }
+        .glass-vial { width: 40px; height: 50px; border: 2px solid rgba(255, 255, 255, 0.18); border-radius: 4px 4px 15px 15px; position: relative; background: rgba(255, 255, 255, 0.05); transition: all 0.6s ease; }
+        .glass-vial.filled { background: var(--accent); box-shadow: 0 0 15px rgba(114, 227, 255, 0.45); border-color: #d6f8ff; }
+        .constellation { position: absolute; top: 1rem; right: 1rem; width: 160px; height: 160px; opacity: 0.2; pointer-events: none; }
+    </style>
+</head>
+<body class="p-4 md:p-12 relative">
+    <div id="cursor-dot"></div><div id="cursor-ring"></div><div class="noise-overlay"></div><div class="scene"></div>
+    <div class="max-w-6xl mx-auto z-10 relative">
+        <header class="text-center mb-10"><h1 class="text-5xl md:text-6xl glow-title">LEVEL 3: PHYSICS</h1><p class="text-3xl mt-4 text-cyan-100" style="font-family: 'Great Vibes';">Test each claim against motion, force, and light</p></header>
+        <nav class="aether-nav">
+            <a href="index.html" class="nav-link">Home</a><a href="about.html" class="nav-link">About</a><a href="level1.html" class="nav-link">Level 1</a><a href="level2.html" class="nav-link">Level 2</a><a href="level3.html" class="nav-link">Level 3</a><a href="level4.html" class="nav-link">Level 4</a><a href="level5.html" class="nav-link">Level 5</a>
+        </nav>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <aside class="lg:col-span-4 space-y-8">
+                <div class="scrap-page p-8 rotate-[2deg] shadow-xl">
+                    <h3 class="text-xl mb-4 border-b border-slate-400 pb-2" style="font-family: 'Cinzel Decorative';">Instructions</h3>
+                    <div class="text-slate-700 italic text-base mb-6 space-y-4">
+                        <p>Level 3 combines physics and astronomy. This set has 6 statements, with 2 hidden falsehoods drawn from the sciences of motion, matter, and space.</p>
+                        <div><span class="legend-tag res-correct">Green:</span> Correct Hallucination<br><span class="text-[15px] ml-4">you caught a bad equation</span></div>
+                        <div><span class="legend-tag res-missed">Yellow:</span> Missed Hallucination<br><span class="text-[15px] ml-4">one impossible claim slipped through</span></div>
+                        <div><span class="legend-tag res-wrong">Red:</span> Incorrect Selection<br><span class="text-[15px] ml-4">that statement holds up under testing</span></div>
+                    </div>
+                    <div class="mb-8"><label class="block text-xs uppercase tracking-widest text-slate-700 font-bold mb-3">Stabilized Signals</label><div class="flex gap-3"><div id="jar-1" class="glass-vial"></div><div id="jar-2" class="glass-vial"></div><div id="jar-3" class="glass-vial"></div></div></div>
+                    <div class="space-y-4 mb-8"><label class="block text-xs uppercase tracking-widest text-slate-700 font-bold">Confidence Level</label><input type="range" id="confidenceSlider" min="0" max="100" value="50" class="w-full accent-blue-700"><div class="flex justify-between text-[10px] text-slate-500 uppercase font-bold"><span>Doubtful</span><span>Certain</span></div></div>
+                    <button onclick="submitGame()" id="submitBtn" class="w-full mt-8 py-3 bg-gradient-to-r from-blue-900 to-cyan-900 text-white rounded-full font-bold tracking-widest text-xs uppercase shadow-lg disabled:opacity-50 transition-transform active:scale-95" disabled>Submit Judgment</button>
+                </div>
+            </aside>
+            <main class="lg:col-span-8">
+                <section class="scrap-page relative p-12 lg:p-16 min-h-[450px]">
+                    <svg class="constellation" viewBox="0 0 100 100"><circle cx="18" cy="32" r="2" fill="#3457d5"/><circle cx="42" cy="18" r="2" fill="#3457d5"/><circle cx="68" cy="34" r="2" fill="#3457d5"/><circle cx="55" cy="62" r="2" fill="#3457d5"/><circle cx="25" cy="70" r="2" fill="#3457d5"/><path d="M18,32 L42,18 L68,34 L55,62 L25,70 Z" fill="none" stroke="#3457d5" stroke-width="1.5"/></svg>
+                    <div class="flex items-center mb-8 border-b border-slate-400 pb-4"><span class="text-sm tracking-widest text-slate-700 uppercase font-bold">The World Of Physics And Astronomy</span><button id="genBtn" onclick="generateChallenge()" class="ml-4 px-3 py-1 border border-slate-500 rounded text-[20px] uppercase font-bold hover:bg-slate-900 hover:text-white transition-all">Generate Text</button></div>
+                    <div id="gameContainer" class="ink-reveal text-2xl leading-relaxed italic">
+                        <p id="loadingText" class="hidden text-slate-700 not-italic text-lg">Generating challenge...</p>
+                    </div>
+                </section>
+            </main>
+
+            <div id="resultBox" class="lg:col-span-8 lg:col-start-5 lg:-mt-[250px] p-6 bg-black/60 backdrop-blur-md rounded-xl border-2 border-cyan-300/40 hidden shadow-[0_0_30px_rgba(114,227,255,0.16)] transition-all duration-700">
+                <div class="flex flex-col lg:flex-row lg:items-start gap-6">
+                    <div class="lg:w-48 lg:shrink-0 text-center lg:text-left">
+                        <h4 class="text-[#9ceeff] text-2xl mb-2" style="font-family: 'Cinzel Decorative';">The Verdict</h4>
+                        <p id="scoreText" class="text-white text-4xl font-bold mb-2"></p>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div id="pointsBreakdown" class="text-[11px] uppercase tracking-widest text-stone-300 border-y border-white/10 py-3 leading-relaxed"></div>
+                        <p id="feedbackText" class="text-cyan-50 italic text-sm mt-4"></p>
+                    </div>
+                    <div class="lg:w-44 lg:shrink-0">
+                        <button onclick="location.reload()" class="w-full py-2 bg-sky-950/40 text-[10px] uppercase tracking-widest text-cyan-300 border border-cyan-300/30 rounded hover:bg-cyan-300 hover:text-black transition-all">Reset Level</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.levelGameConfig = { level: 3, accentVar: "--accent" };
+    </script>
+    <script src="level-game.js"></script>
+</body>
+</html>

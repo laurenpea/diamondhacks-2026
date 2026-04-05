@@ -144,7 +144,8 @@
 
     <div class="max-w-6xl mx-auto z-10 relative">
         <header class="text-center mb-10">
-            <p class="text-4xl text-purple-300 mt-4" style="font-family: 'Great Vibes';">Identify our Generated Fabrications</p>
+            <h1 class="text-5xl md:text-6xl glow-title">LEVEL 1: BIOLOGY</h1>
+            <p class="text-3xl text-purple-300 mt-4" style="font-family: 'Great Vibes';">Identify our Generated Fabrications</p>
         </header>
 
         <nav class="aether-nav">
@@ -152,26 +153,17 @@
             <a href="about.html" class="nav-link">About</a>
             <a href="level1.html" class="nav-link">Level 1</a>
             <a href="level2.html" class="nav-link">Level 2</a>
-            <a href="level3.html" class="nav-link">Level 3</a>   
+            <a href="level3.html" class="nav-link">Level 3</a>
+            <a href="level4.html" class="nav-link">Level 4</a>
+            <a href="level5.html" class="nav-link">Level 5</a>
         </nav>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <aside class="lg:col-span-4 space-y-8">
-                <div id="resultBox" class="p-6 bg-black/60 backdrop-blur-md rounded-xl border-2 border-lime-400/50 hidden shadow-[0_0_30px_rgba(190,242,100,0.2)] transition-all duration-700">
-                    <h4 class="text-[#bef264] text-center text-2xl mb-2" style="font-family: 'Cinzel Decorative';">The Verdict</h4>
-                    <p id="scoreText" class="text-white text-center text-4xl font-bold mb-2"></p>
-                    
-                    <div id="pointsBreakdown" class="text-[11px] uppercase tracking-widest text-stone-300 text-center mb-4 border-y border-white/10 py-3 leading-relaxed">
-                    </div>
-
-                    <p id="feedbackText" class="text-purple-100 text-center italic text-sm mb-4 px-2"></p>
-                    <button onclick="location.reload()" class="w-full py-2 bg-lime-900/40 text-[10px] uppercase tracking-widest text-lime-400 border border-lime-400/30 rounded hover:bg-lime-400 hover:text-black transition-all">Reset Level</button>
-                </div>
-
                 <div class="scrap-page p-8 rotate-[-2deg] shadow-xl">
                     <h3 class="text-xl text-purple-950 mb-4 border-b border-stone-300 pb-2" style="font-family: 'Cinzel Decorative';">Instructions</h3>
                     <div class="text-stone-700 italic text-base mb-6 space-y-4">
-                        <p>Generate Text to begin. Select the sentences you believe to be hallucinations. Adjust your certainty before submitting.</p>
+                        <p>Level 1 is a warm-up. You will read 3 biology sentences, and exactly 1 of them is a hallucination.</p>
                         
                         <div>
                             <span class="legend-tag res-correct">Green:</span> Correct Hallucination
@@ -187,6 +179,15 @@
                         </div>
                     </div>
 
+                    <div class="mb-8">
+                        <label class="block text-xs uppercase tracking-widest text-stone-600 font-bold mb-3">Recovered Samples</label>
+                        <div class="flex gap-3">
+                            <div id="jar-1" class="glass-vial"></div>
+                            <div id="jar-2" class="glass-vial"></div>
+                            <div id="jar-3" class="glass-vial"></div>
+                        </div>
+                    </div>
+
                     <div class="space-y-4 mb-8">
                         <label class="block text-xs uppercase tracking-widest text-stone-600 font-bold">Confidence Level</label>
                         <input type="range" id="confidenceSlider" min="0" max="100" value="50" class="w-full accent-purple-800">
@@ -197,6 +198,7 @@
                     </div>
 
                     <button onclick="submitGame()" id="submitBtn" class="w-full mt-8 py-3 bg-gradient-to-r from-purple-900 to-lime-900 text-white rounded-full font-bold tracking-widest text-xs uppercase shadow-lg disabled:opacity-50 transition-transform active:scale-95" disabled>Submit Judgment</button>
+
                 </div>
             </aside>
 
@@ -209,151 +211,36 @@
 
                     <div class="flex items-center mb-8 border-b border-stone-200 pb-4">
                         <span class="text-sm tracking-widest text-stone-600 uppercase font-bold">The World Of Biology</span>
-                        <button id="genBtn" onclick="revealText()" class="ml-4 px-3 py-1 border border-stone-400 rounded text-[20px] uppercase font-bold hover:bg-stone-800 hover:text-white transition-all">Generate Text</button>
+                        <button id="genBtn" onclick="generateChallenge()" class="ml-4 px-3 py-1 border border-stone-400 rounded text-[20px] uppercase font-bold hover:bg-stone-800 hover:text-white transition-all">Generate Text</button>
                     </div>
 
                     <div id="gameContainer" class="ink-reveal text-2xl leading-relaxed italic">
-                        <span class="sentence-btn" data-id="1" data-fake="false">Mitochondria are the powerhouses of the cell, converting oxygen and nutrients into ATP.</span>
-                        <span class="sentence-btn" data-id="2" data-fake="true">Human DNA is composed of a triple-helix structure that allows for the spontaneous regeneration of lost limbs.</span>
-                        <span class="sentence-btn" data-id="3" data-fake="false">Chlorophyll is the pigment responsible for the green color in plants and is essential for photosynthesis.</span>
-                        <span class="sentence-btn" data-id="4" data-fake="true">The human heart is the only muscle in the body that can function without a continuous supply of oxygenated blood.</span>
-                        <span class="sentence-btn" data-id="5" data-fake="false">Red blood cells carry oxygen throughout the body using a protein called hemoglobin.</span>
-                        <span class="sentence-btn" data-id="6" data-fake="true">Neurons communicate exclusively through sound waves, which is why thinking hard can make your ears ring.</span>
+                        <p id="loadingText" class="hidden text-stone-600 not-italic text-lg">Generating challenge...</p>
                     </div>
                 </section>
             </main>
+
+            <div id="resultBox" class="lg:col-span-8 lg:col-start-5 lg:-mt-[250px] p-6 bg-black/60 backdrop-blur-md rounded-xl border-2 border-lime-400/50 hidden shadow-[0_0_30px_rgba(190,242,100,0.2)] transition-all duration-700">
+                <div class="flex flex-col lg:flex-row lg:items-start gap-6">
+                    <div class="lg:w-48 lg:shrink-0 text-center lg:text-left">
+                        <h4 class="text-[#bef264] text-2xl mb-2" style="font-family: 'Cinzel Decorative';">The Verdict</h4>
+                        <p id="scoreText" class="text-white text-4xl font-bold mb-2"></p>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div id="pointsBreakdown" class="text-[11px] uppercase tracking-widest text-stone-300 border-y border-white/10 py-3 leading-relaxed"></div>
+                        <p id="feedbackText" class="text-purple-100 italic text-sm mt-4"></p>
+                    </div>
+                    <div class="lg:w-44 lg:shrink-0">
+                        <button onclick="location.reload()" class="w-full py-2 bg-lime-900/40 text-[10px] uppercase tracking-widest text-lime-400 border border-lime-400/30 rounded hover:bg-lime-400 hover:text-black transition-all">Reset Level</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        const dot = document.getElementById('cursor-dot');
-        const ring = document.getElementById('cursor-ring');
-        const sentences = document.querySelectorAll('.sentence-btn');
-        const navLinks = document.querySelectorAll('.nav-link, #genBtn, #submitBtn');
-        const gameContainer = document.getElementById('gameContainer');
-        const submitBtn = document.getElementById('submitBtn');
-        const genBtn = document.getElementById('genBtn');
-        const resultBox = document.getElementById('resultBox');
-        let selectedIds = new Set();
-        let mX = 0, mY = 0, rX = 0, rY = 0;
-
-        // Custom Cursor Interaction
-        document.addEventListener('mousemove', (e) => {
-            mX = e.clientX; mY = e.clientY;
-            dot.style.left = mX + 'px'; dot.style.top = mY + 'px';
-            if (Math.random() > 0.95) spawnSpore(mX, mY);
-        });
-
-        function smoothCursor() {
-            rX += (mX - rX - 20) * 0.15;
-            rY += (mY - rY - 20) * 0.15;
-            ring.style.left = rX + 'px'; ring.style.top = rY + 'px';
-            requestAnimationFrame(smoothCursor);
-        }
-        smoothCursor();
-
-        // Cursor Scaling for interactive elements
-        const interactives = document.querySelectorAll('.nav-link, .sentence-btn, button, input');
-        interactives.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                ring.style.transform = 'scale(1.8)';
-                ring.style.borderColor = 'white';
-                ring.style.backgroundColor = 'rgba(213, 234, 177, 0.1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                ring.style.transform = 'scale(1)';
-                ring.style.borderColor = 'var(--electric-moss)';
-                ring.style.backgroundColor = 'transparent';
-            });
-        });
-
-        function revealText() {
-            genBtn.style.display = 'none';
-            gameContainer.classList.add('manifested');
-            submitBtn.disabled = false;
-        }
-
-        sentences.forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (submitBtn.disabled) return;
-                const id = btn.getAttribute('data-id');
-                btn.classList.toggle('selected');
-                selectedIds.has(id) ? selectedIds.delete(id) : selectedIds.add(id);
-            });
-        });
-
-        function submitGame() {
-            const confidence = parseInt(document.getElementById('confidenceSlider').value);
-            // Multiplier ranges from 0.5 (Doubtful) to 1.5 (Certain)
-            const multiplier = 0.5 + (confidence / 100); 
-            
-            let finalScore = 0;
-            let foundHallucinations = 0;
-            submitBtn.disabled = true;
-
-            sentences.forEach(btn => {
-                const isFake = btn.getAttribute('data-fake') === 'true';
-                const isSelected = selectedIds.has(btn.getAttribute('data-id'));
-                
-                if (isFake && isSelected) {
-                    btn.classList.add('res-correct');
-                    foundHallucinations++;
-                    // Higher confidence = much higher reward
-                    finalScore += Math.round(25 * multiplier); 
-                } 
-                else if (!isFake && isSelected) {
-                    btn.classList.add('res-wrong');
-                    // Higher confidence = much heavier penalty
-                    finalScore -= Math.round(20 * multiplier);
-                } 
-                else if (isFake && !isSelected) {
-                    btn.classList.add('res-missed');
-                    finalScore -= 10;
-                }
-                else if (!isFake && !isSelected) {
-                    // Reward for correctly identifying a truth
-                    finalScore += 5; 
-                }
-            });
-
-            // Update Specimens (Jars)
-            for(let i=1; i<=3; i++) { 
-                if(i <= foundHallucinations) document.getElementById(`jar-${i}`).classList.add('filled'); 
-            }
-
-            // --- REVEAL RESULTS ---
-            resultBox.classList.remove('hidden');
-            // Smooth scroll the sidebar to the top so they see the result immediately
-            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-            document.getElementById('scoreText').innerText = finalScore + " KP"; // Knowledge Points
-
-            // Explain the Slider's effect
-            const breakdown = document.getElementById('pointsBreakdown');
-            let impactStudy = "";
-            
-            if (confidence > 75) {
-                impactStudy = `<span class="text-lime-400">Arrogance/Certainty:</span> Your conviction doubled the stakes. High rewards, but heavy tolls.`;
-            } else if (confidence < 25) {
-                impactStudy = `<span class="text-amber-400">Caution/Doubt:</span> You played it safe. The hallucinations couldn't hurt you, but neither could the truth set you free.`;
-            } else {
-                impactStudy = `<span class="text-purple-300">Measured:</span> You balanced your intuition with a healthy dose of skepticism.`;
-            }
-
-            breakdown.innerHTML = `
-                ${impactStudy}
-                <div class="mt-2 pt-2 border-t border-white/5 opacity-60">Confidence Multiplier: x${multiplier.toFixed(2)}</div>
-            `;
-
-            // Dynamic Feedback based on Points
-            let feedback = "";
-            if (finalScore > 70) feedback = "The veil is lifted. You possess the eyes of a true Curator.";
-            else if (finalScore > 30) feedback = "You see the glitches in reality, but your hesitation keeps you tethered.";
-            else if (finalScore >= 0) feedback = "You are surviving, but only just. The fabrications are gaining ground.";
-            else feedback = "Lost to the dream. You can no longer distinguish light from shadow.";
-
-            document.getElementById('feedbackText').innerText = feedback;
-        }
+        window.levelGameConfig = { level: 1, accentVar: "--electric-moss" };
     </script>
+    <script src="level-game.js"></script>
 </body>
 </html>
