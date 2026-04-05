@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hallucination Identification - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --deep-violet: #96b63f; 
+            --electric-moss: #d5eab1;
+            --amethyst: #a855f7;
+            --parchment: #dfca94;
+        }
+
+        body {
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(79, 10, 144, 0.18) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(190, 242, 100, 0.125) 0%, transparent 40%),
+                url("https://www.transparenttextures.com/patterns/black-linen.png"),
+                #660518;
+            background-attachment: fixed;
+            color: #0e0321;
+            font-family: 'EB Garamond', serif;
+            overflow-x: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><text y="16" font-size="16">🔍</text></svg>'), auto;
+        }
+
+        .title-container {
+            display: inline-block;
+            padding: 10px 2px;
+            background: rgba(28, 0, 53, 0.581);
+            border: 1px solid rgba(220, 209, 170, 0.3);
+            box-shadow: 0 0 20px rgba(48, 65, 3, 0.5);
+        }
+
+        .glow-title { color: var(--electric-moss); text-shadow: 0 0 2px rgba(121, 100, 242, 0.7); }
+        .fancy { font-family: 'Cinzel Decorative', serif; }
+        .cursive { font-family: 'Great Vibes', cursive; }
+
+        /* Navigation */
+        .aether-nav { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .nav-link {
+            font-family: 'Cinzel Decorative', serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15rem;
+            color: var(--electric-moss); padding: 0.5rem 1rem; border: 1px solid rgba(222, 255, 165, 0.2);
+            background: rgba(26, 5, 45, 0.4); backdrop-filter: blur(5px); border-radius: 4px; transition: all 0.4s ease;
+        }
+        .nav-link:hover { color: white; border-color: var(--electric-moss); box-shadow: 0 0 15px rgba(222, 255, 165, 0.4); transform: translateY(-3px); }
+
+        /* Level Cards */
+        .level-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(213, 234, 177, 0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .level-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--electric-moss);
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .level-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(213, 234, 177, 0.05) 0%, transparent 70%);
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .level-card:hover::before { opacity: 1; }
+
+        .btn-enter {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 8px 20px;
+            background: var(--electric-moss);
+            color: #1a052d;
+            font-family: 'Cinzel Decorative';
+            font-size: 0.7rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .level-card:hover .btn-enter { box-shadow: 0 0 15px var(--electric-moss); }
+
+        .spore { position: absolute; border-radius: 50%; pointer-events: none; z-index: 100; }
+    </style>
+</head>
+<body class="p-4 md:p-12 relative">
+
+    <div class="max-w-6xl mx-auto z-10 relative">
+        <header class="text-center mb-10">
+            <div class="title-container">
+                <h1 class="fancy text-6xl glow-title">Hallucination Identification</h1>
+            </div><br><br>
+            <p class="cursive text-4xl text-purple-300">Identify our generated fabrications</p>
+        </header>
+
+        <nav class="aether-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="level1.html" class="nav-link">Level 1</a>
+            <a href="level2.html" class="nav-link">Level 2</a>
+            <a href="level3.html" class="nav-link">Level 3</a>
+            <a href="level4.html" class="nav-link">Level 4</a>
+            <a href="about.html" class="nav-link">About</a>
+        </nav>
+
+        <section class="text-center mb-20 max-w-2xl mx-auto">
+            <h2 class="fancy text-2xl text-lime-200 mb-4">Welcome, Truth-Seeker</h2>
+            <p class="text-xl italic text-purple-100 leading-relaxed">
+                The archives have been corrupted by digital hallucinations. Within these scrolls, 
+                fact and fabrication are woven together. Your task is to discern the genuine 
+                from the illusory.
+            </p>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            
+            <a href="level1.html" class="level-card">
+                <span class="text-stone-400 text-xs uppercase tracking-widest">Foundation</span>
+                <h3 class="fancy text-2xl text-lime-200 my-2">Biology</h3>
+                <p class="text-sm italic text-purple-200">Sort through the building blocks of life.</p>
+                <div class="btn-enter">Begin Study</div>
+            </a>
+
+            <a href="level2.html" class="level-card opacity-60">
+                <span class="text-stone-400 text-xs uppercase tracking-widest">Intermediate</span>
+                <h3 class="fancy text-2xl text-lime-200 my-2">Celestial</h3>
+                <p class="text-sm italic text-purple-200">The stars often hide the most beautiful lies.</p>
+                <div class="btn-enter">Locked</div>
+            </a>
+
+            <a href="level3.html" class="level-card opacity-60">
+                <span class="text-stone-400 text-xs uppercase tracking-widest">Advanced</span>
+                <h3 class="fancy text-2xl text-lime-200 my-2">Ancient Lore</h3>
+                <p class="text-sm italic text-purple-200">Chronicles of history, rewritten by shadows.</p>
+                <div class="btn-enter">Locked</div>
+            </a>
+
+            <a href="level4.html" class="level-card opacity-60">
+                <span class="text-stone-400 text-xs uppercase tracking-widest">Master</span>
+                <h3 class="fancy text-2xl text-lime-200 my-2">Quantum</h3>
+                <p class="text-sm italic text-purple-200">Where the hallucination becomes reality.</p>
+                <div class="btn-enter">Locked</div>
+            </a>
+
+        </div>
+
+        <footer class="text-center mt-20 border-t border-white/10 pt-8">
+            <p class="fancy text-[10px] tracking-[0.3em] text-stone-400 uppercase">Aetheric Systems © 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Keeping the magic mouse effect for consistency
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.93) spawnSpore(e.clientX, e.clientY);
+        });
+
+        function spawnSpore(x, y) {
+            const spore = document.createElement('div');
+            spore.className = 'spore';
+            const size = (Math.random() * 4 + 2) + 'px';
+            spore.style.width = size; spore.style.height = size;
+            spore.style.left = x + 'px'; spore.style.top = y + window.scrollY + 'px';
+            const colors = ['#deffa5', '#a855f7', '#ffd700'];
+            spore.style.background = colors[Math.floor(Math.random() * colors.length)];
+            spore.style.boxShadow = `0 0 10px ${spore.style.background}`;
+            document.body.appendChild(spore);
+            const anim = spore.animate([
+                { opacity: 1 }, 
+                { transform: `translate(${(Math.random()-0.5)*100}px, -100px)`, opacity: 0 }
+            ], { duration: 1500 });
+            anim.onfinish = () => spore.remove();
+        }
+    </script>
+</body>
+</html>
