@@ -18,8 +18,8 @@ app.get("/api/generate", async (req, res) => {
     const seed = truthStore[Math.floor(Math.random() * truthStore.length)];
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const prompt = `Write a 3-sentence educational paragraph about ${seed.topic}. 
-    Include this exact false statement: "${seed.false_statement}". 
+    const prompt = `Write a 6-sentence educational paragraph about ${seed.topic}. 
+    Include this exact false statement: "${seed.statement}". 
     The rest must be factual. Return ONLY the text.`;
 
     const result = await model.generateContent(prompt);
