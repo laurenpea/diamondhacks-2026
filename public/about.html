@@ -6,168 +6,394 @@
     <title>About - The Hallucination Identification</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
-            --electric-moss: #d5eab1;
-            --amethyst: #a855f7;
-            --deep-forest: #425519;
-            --parchment: #c4a862;
-        }
-        
-        body {
-            background-color: var(--deep-forest);
-            color: #e9d5ff;
-            font-family: 'EB Garamond', serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-            cursor: none;
+            --book-gold: #d9c27f;
+            --candle: #ffd38a;
+            --oak: #3b2416;
+            --oak-shadow: #24140b;
+            --plum: #6a3f67;
+            --ink: #1e130d;
+            --velvet: #140c10;
+            --parchment: #dcc392;
         }
 
-        /* --- BACKGROUND --- */
-        .scene {
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #f8eed2;
+            font-family: 'EB Garamond', serif;
+            cursor: none;
+            background:
+                radial-gradient(circle at top, rgba(255, 211, 138, 0.1), transparent 30%),
+                linear-gradient(180deg, #25161b 0%, #140c10 45%, #0d080b 100%);
+        }
+
+        .library-wall {
             position: fixed;
             inset: 0;
-            background: 
-                radial-gradient(circle at 15% 15%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(213, 234, 177, 0.1) 0%, transparent 40%);
-            background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png");
-            z-index: -1;
+            z-index: -3;
+            background:
+                linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0 4%, transparent 4% 96%, rgba(0, 0, 0, 0.18) 96% 100%),
+                linear-gradient(180deg, rgba(255, 224, 173, 0.05), transparent 25%),
+                linear-gradient(180deg, #2e1d15 0%, #1c110d 100%);
         }
 
-        .noise-overlay {
+        .shelf {
+            position: fixed;
+            left: 0;
+            right: 0;
+            height: 18px;
+            background:
+                linear-gradient(180deg, #5f3b24 0%, #3b2416 70%, #27180f 100%);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            z-index: -2;
+        }
+
+        .shelf::before {
+            content: "";
+            position: absolute;
+            inset: -48px 0 18px 0;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(128, 77, 50, 0.95) 0 20px,
+                    rgba(82, 45, 31, 0.95) 20px 36px,
+                    rgba(150, 112, 56, 0.9) 36px 52px,
+                    rgba(92, 44, 63, 0.92) 52px 68px,
+                    rgba(47, 69, 96, 0.92) 68px 84px,
+                    rgba(107, 87, 44, 0.92) 84px 100px
+                );
+            opacity: 0.95;
+        }
+
+        .shelf.top { top: 16vh; }
+        .shelf.middle { top: 43vh; }
+        .shelf.bottom { top: 70vh; }
+
+        .dust {
             position: fixed;
             inset: -50%;
-            background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
-            opacity: 0.12;
+            z-index: -1;
             pointer-events: none;
-            z-index: 0;
+            opacity: 0.1;
+            background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
         }
 
-        /* --- UI ELEMENTS --- */
-        .aether-nav { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem; position: relative; z-index: 20; }
-        .nav-link {
-            font-family: 'Cinzel Decorative', serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15rem;
-            color: var(--electric-moss); padding: 0.5rem 1rem; border: 1px solid rgba(222, 255, 165, 0.2);
-            background: rgba(26, 5, 45, 0.4); backdrop-filter: blur(5px); border-radius: 4px; transition: all 0.4s ease;
+        .lamp-glow {
+            position: fixed;
+            top: -8rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40rem;
+            height: 24rem;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(255, 215, 145, 0.34) 0%, rgba(255, 215, 145, 0.08) 45%, transparent 72%);
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(8px);
         }
-        .nav-link:hover { 
-            color: white; 
-            border-color: var(--electric-moss); 
-            box-shadow: 0 0 20px rgba(213, 234, 177, 0.4); 
+
+        .aether-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .nav-link {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14rem;
+            color: var(--book-gold);
+            padding: 0.55rem 1rem;
+            border: 1px solid rgba(217, 194, 127, 0.25);
+            background: rgba(28, 16, 10, 0.58);
+            backdrop-filter: blur(4px);
+            border-radius: 999px;
+            transition: all 0.35s ease;
+        }
+
+        .nav-link:hover {
+            color: white;
+            border-color: var(--candle);
+            box-shadow: 0 0 20px rgba(255, 211, 138, 0.25);
             transform: translateY(-2px);
         }
 
-        .scrap-page {
-            background-color: var(--parchment);
-            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-            color: #251e1e;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            clip-path: polygon(
-                0% 2%, 5% 0%, 10% 3%, 25% 1%, 50% 4%, 75% 1%, 90% 3%, 100% 0%,
-                98% 15%, 100% 35%, 97% 50%, 100% 75%, 98% 90%, 100% 100%,
-                75% 98%, 50% 100%, 25% 97%, 0% 100%,
-                2% 75%, 0% 50%, 3% 25%, 1% 10%
-            );
-        }
-
-        /* --- CURSOR --- */
-        #cursor-dot { position: fixed; width: 6px; height: 6px; background: white; border-radius: 50%; pointer-events: none; z-index: 1000; mix-blend-mode: difference; }
-        #cursor-ring { position: fixed; width: 40px; height: 40px; border: 1px solid var(--electric-moss); border-radius: 50%; pointer-events: none; z-index: 999; transition: transform 0.2s ease-out; }
-
-        .glow-title { 
+        .glow-title {
             font-family: 'Cinzel Decorative', serif;
-            background: linear-gradient(to bottom, #ffffff 40%, var(--electric-moss) 100%);
+            background: linear-gradient(to bottom, #fff9e9 20%, #d9c27f 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 30px rgba(213, 234, 177, 0.3);
+            text-shadow: 0 0 30px rgba(255, 223, 166, 0.22);
         }
 
-        .vine-svg {
+        .library-card {
+            position: relative;
+            background:
+                linear-gradient(180deg, rgba(248, 232, 193, 0.97), rgba(220, 195, 146, 0.96)),
+                url("https://www.transparenttextures.com/patterns/aged-paper.png");
+            color: var(--ink);
+            border: 1px solid rgba(81, 48, 30, 0.24);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .library-card::before {
+            content: "";
             position: absolute;
-            bottom: -20px;
-            left: -20px;
-            width: 150px;
-            opacity: 0.4;
-            transform: rotate(-15deg);
+            inset: 1rem;
+            border: 1px solid rgba(76, 51, 39, 0.15);
+            pointer-events: none;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(71, 46, 34, 0.4), transparent);
+        }
+
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 1rem;
+        }
+
+        .level-card {
+            display: block;
+            padding: 1.1rem 1rem;
+            border-radius: 1rem;
+            text-decoration: none;
+            color: #fff8e7;
+            min-height: 10rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .level-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 45%);
+            pointer-events: none;
+        }
+
+        .level-card:hover {
+            transform: translateY(-6px) rotate(-0.4deg);
+            border-color: rgba(255, 231, 180, 0.65);
+            box-shadow: 0 24px 38px rgba(0, 0, 0, 0.28);
+        }
+
+        .level-bio { background: linear-gradient(160deg, #4a5d1a, #1d2610 70%); }
+        .level-history { background: linear-gradient(160deg, #7b4d1e, #2d180d 70%); }
+        .level-physics { background: linear-gradient(160deg, #1e547b, #0c1b2d 70%); }
+        .level-literature { background: linear-gradient(160deg, #6a2e62, #231022 70%); }
+        .level-chemistry { background: linear-gradient(160deg, #2f6b4e, #0f221a 70%); }
+
+        #cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
+
+        #cursor-ring {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--book-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            transition: transform 0.2s ease-out, border-color 0.2s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            #cursor-dot,
+            #cursor-ring {
+                display: none;
+            }
+
+            .shelf.top { top: 20vh; }
+            .shelf.middle { top: 49vh; }
+            .shelf.bottom { top: 78vh; }
         }
     </style>
 </head>
-<body class="p-8 md:p-12">
-
+<body class="p-5 md:p-10">
     <div id="cursor-dot"></div>
     <div id="cursor-ring"></div>
-    <div class="noise-overlay"></div>
-    <div class="scene"></div>
+    <div class="library-wall"></div>
+    <div class="lamp-glow"></div>
+    <div class="dust"></div>
+    <div class="shelf top"></div>
+    <div class="shelf middle"></div>
+    <div class="shelf bottom"></div>
 
-    <div class="max-w-4xl mx-auto z-10 relative">
-        <header class="text-center mb-12">
-            <h1 class="text-5xl md:text-6xl glow-title mb-6">ABOUT OUR PROJECT</h1>
+    <div class="max-w-6xl mx-auto relative z-10">
+        <header class="text-center mb-10 md:mb-14">
+            <p class="uppercase tracking-[0.35em] text-[11px] text-amber-200/80 mb-3">Archive Wing</p>
+            <h1 class="text-4xl md:text-6xl glow-title">ABOUT THE LIBRARY</h1>
+            <p class="mt-5 text-lg md:text-2xl text-amber-50/85 italic">A reading room for spotting what sounds polished, but is not actually true.</p>
             <nav class="aether-nav">
                 <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
                 <a href="level1.html" class="nav-link">Level 1</a>
+                <a href="level2.html" class="nav-link">Level 2</a>
+                <a href="level3.html" class="nav-link">Level 3</a>
+                <a href="level4.html" class="nav-link">Level 4</a>
+                <a href="level5.html" class="nav-link">Level 5</a>
             </nav>
         </header>
 
-        <main class="scrap-page p-12 md:p-20 relative rotate-1">
-            <svg class="vine-svg" viewBox="0 0 100 100">
-                <path d="M100,0 Q70,30 80,50 T20,100" fill="none" stroke="#5f7426" stroke-width="2" />
-                <circle cx="20" cy="100" r="3" fill="#a855f7" />
-            </svg>
+        <main class="library-card rounded-[2rem] p-7 md:p-12">
+            <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+                <section>
+                    <p class="uppercase tracking-[0.3em] text-[11px] text-stone-600 mb-3">Mission Statement</p>
+                    <h2 class="font-['Cinzel_Decorative'] text-2xl md:text-4xl text-[var(--oak)] mb-5">Why This Project Exists</h2>
+                    <div class="space-y-5 text-lg md:text-[1.45rem] italic leading-relaxed text-stone-800">
+                        <p>The Hallucination Identification turns AI literacy into a library game. Each room asks you to read a short passage, question every sentence, and separate polished misinformation from grounded truth.</p>
+                        <p>The point is not just to guess correctly. It is to practice the habit of slowing down, checking confidence, and noticing when something sounds convincing before it is actually reliable.</p>
+                        <p>Each level shifts subjects and tone so you can test the same critical-thinking skill across science, history, literature, and beyond.</p>
+                    </div>
 
-            <h2 class="font-['Cinzel_Decorative'] text-3xl text-purple-900 mb-8 border-b border-stone-400 pb-2">The Goal</h2>
-            
-            <div class="text-[30px] leading-relaxed text-stone-800 space-y-6 italic">
-                <p>
-                    The task is simple: "Generate Text" of a specific topic (Biology, Politics, etc.) and identify our AI's misinformation.  
-                </p>
-                
-                <p>
-                    In world full of fantasies, falsehoods, and misinformation, it is up to you to discover what is real and what is fake; a hallucination. <br><br> Rely on your critical thinking skills to judge what is the truth and what is a lie.
-                </p>
+                    <div class="divider my-8"></div>
 
-                <h3 class="font-['Cinzel_Decorative'] text-xl text-purple-900 pt-6">The Methodology</h3>
-                
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus. 
-                </p>
+                    <p class="uppercase tracking-[0.3em] text-[11px] text-stone-600 mb-3">How To Play</p>
+                    <div class="grid gap-4 md:grid-cols-3 text-sm uppercase tracking-[0.2em]">
+                        <div class="rounded-2xl bg-white/35 p-4 border border-stone-500/20">
+                            <p class="text-stone-600 mb-2">Step 1</p>
+                            <p class="text-[var(--oak)] font-bold leading-relaxed">Generate a fresh passage for the level you choose.</p>
+                        </div>
+                        <div class="rounded-2xl bg-white/35 p-4 border border-stone-500/20">
+                            <p class="text-stone-600 mb-2">Step 2</p>
+                            <p class="text-[var(--oak)] font-bold leading-relaxed">Click the sentences you believe are hallucinations.</p>
+                        </div>
+                        <div class="rounded-2xl bg-white/35 p-4 border border-stone-500/20">
+                            <p class="text-stone-600 mb-2">Step 3</p>
+                            <p class="text-[var(--oak)] font-bold leading-relaxed">Submit your verdict and compare your read to the truth notes.</p>
+                        </div>
+                    </div>
 
-                <p>
-                    Arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque. In egestas erat imperdiet sed euismod nisi porta lorem mollis.
-                </p>
+                    <div class="mt-8 rounded-[1.5rem] bg-[rgba(52,30,20,0.08)] border border-[rgba(59,36,22,0.16)] p-6">
+                        <p class="uppercase tracking-[0.3em] text-[11px] text-stone-600 mb-2">Keep In Mind</p>
+                        <p class="text-lg text-stone-800 leading-relaxed">Strong wording, technical vocabulary, and confident delivery can all make a false statement feel trustworthy. The challenge is designed to make you notice that instinct and test it.</p>
+                    </div>
+                </section>
+
+                <aside>
+                    <div class="rounded-[1.75rem] bg-[rgba(35,18,12,0.88)] p-6 md:p-7 text-amber-50 shadow-2xl border border-amber-200/10">
+                        <p class="uppercase tracking-[0.35em] text-[11px] text-amber-200/70 mb-3">Reading Rooms</p>
+                        <h3 class="font-['Cinzel_Decorative'] text-2xl md:text-3xl text-[var(--book-gold)] mb-6">Choose A Level</h3>
+
+                        <div class="level-grid">
+                            <a href="level1.html" class="level-card level-bio">
+                                <p class="text-[10px] uppercase tracking-[0.3em] text-lime-200/75">Level 1</p>
+                                <h4 class="font-['Cinzel_Decorative'] text-2xl mt-3">Biology</h4>
+                                <p class="mt-3 text-sm text-lime-100/80 leading-relaxed">A short warm-up passage with one planted hallucination.</p>
+                            </a>
+
+                            <a href="level2.html" class="level-card level-history">
+                                <p class="text-[10px] uppercase tracking-[0.3em] text-amber-100/75">Level 2</p>
+                                <h4 class="font-['Cinzel_Decorative'] text-2xl mt-3">History</h4>
+                                <p class="mt-3 text-sm text-amber-50/80 leading-relaxed">Read the archive carefully and question the record.</p>
+                            </a>
+
+                            <a href="level3.html" class="level-card level-physics">
+                                <p class="text-[10px] uppercase tracking-[0.3em] text-cyan-100/75">Level 3</p>
+                                <h4 class="font-['Cinzel_Decorative'] text-2xl mt-3">Physics</h4>
+                                <p class="mt-3 text-sm text-cyan-50/80 leading-relaxed">Spot which scientific claims only sound precise.</p>
+                            </a>
+
+                            <a href="level4.html" class="level-card level-literature">
+                                <p class="text-[10px] uppercase tracking-[0.3em] text-fuchsia-100/75">Level 4</p>
+                                <h4 class="font-['Cinzel_Decorative'] text-2xl mt-3">Literature</h4>
+                                <p class="mt-3 text-sm text-fuchsia-50/80 leading-relaxed">Interpretive language gets trickier when the prose is elegant.</p>
+                            </a>
+
+                            <a href="level5.html" class="level-card level-chemistry">
+                                <p class="text-[10px] uppercase tracking-[0.3em] text-emerald-100/75">Level 5</p>
+                                <h4 class="font-['Cinzel_Decorative'] text-2xl mt-3">Chemistry</h4>
+                                <p class="mt-3 text-sm text-emerald-50/80 leading-relaxed">The toughest room, where confident jargon can mislead fast.</p>
+                            </a>
+                        </div>
+
+                        <div class="mt-6 rounded-2xl border border-amber-200/10 bg-white/5 p-4">
+                            <p class="text-[10px] uppercase tracking-[0.3em] text-amber-100/65 mb-2">Library Note</p>
+                            <p class="text-sm text-amber-50/85 leading-relaxed">You can jump into any room directly from here, or head back to the main entrance if you want the original floating portal view.</p>
+                        </div>
+                    </div>
+                </aside>
             </div>
 
-            <div class="mt-12 pt-8 border-t border-stone-300 flex justify-between items-center">
-                <span class="font-['Great_Vibes'] text-3xl text-stone-500">Sincerely, <br>Your Authors: Sudisha, Lauren</span>
-                <a href="index.html" class="text-[20px] uppercase tracking-widest font-bold text-purple-900 hover:text-black transition-colors">Return to Library →</a>
-            </div>
+            <div class="divider my-8 md:my-10"></div>
+
+            <footer class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <p class="font-['Great_Vibes'] text-3xl md:text-4xl text-stone-600">Signed by the librarians</p>
+                    <p class="text-stone-700 text-lg mt-1">Sudisha and Lauren</p>
+                </div>
+                <a href="index.html" class="inline-flex items-center justify-center rounded-full border border-stone-700/20 bg-stone-900 px-6 py-3 text-xs uppercase tracking-[0.3em] text-amber-50 transition hover:-translate-y-0.5 hover:bg-black">Return to Entrance</a>
+            </footer>
         </main>
     </div>
 
     <script>
         const dot = document.getElementById('cursor-dot');
         const ring = document.getElementById('cursor-ring');
-        let mX = 0, mY = 0, rX = 0, rY = 0;
+        let mouseX = 0;
+        let mouseY = 0;
+        let ringX = 0;
+        let ringY = 0;
 
-        document.addEventListener('mousemove', (e) => {
-            mX = e.clientX; mY = e.clientY;
-            dot.style.left = mX + 'px'; dot.style.top = mY + 'px';
+        document.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+            if (dot) {
+                dot.style.left = `${mouseX}px`;
+                dot.style.top = `${mouseY}px`;
+            }
         });
 
         function smoothCursor() {
-            rX += (mX - rX - 20) * 0.15;
-            rY += (mY - rY - 20) * 0.15;
-            ring.style.left = rX + 'px'; ring.style.top = rY + 'px';
+            if (ring) {
+                ringX += (mouseX - ringX - 20) * 0.15;
+                ringY += (mouseY - ringY - 20) * 0.15;
+                ring.style.left = `${ringX}px`;
+                ring.style.top = `${ringY}px`;
+            }
             requestAnimationFrame(smoothCursor);
         }
         smoothCursor();
 
-        // Cursor scaling
-        const interactables = document.querySelectorAll('.nav-link, a, button');
-        interactables.forEach(el => {
-            el.addEventListener('mouseenter', () => ring.style.transform = 'scale(1.8)');
-            el.addEventListener('mouseleave', () => ring.style.transform = 'scale(1)');
+        const interactables = document.querySelectorAll('.nav-link, .level-card, button, a');
+        interactables.forEach((element) => {
+            element.addEventListener('mouseenter', () => {
+                if (!ring) return;
+                ring.style.transform = 'scale(1.9)';
+                ring.style.borderColor = 'white';
+            });
+            element.addEventListener('mouseleave', () => {
+                if (!ring) return;
+                ring.style.transform = 'scale(1)';
+                ring.style.borderColor = 'var(--book-gold)';
+            });
         });
     </script>
 </body>
