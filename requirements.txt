@@ -1,0 +1,21 @@
+Project runtime requirements
+============================
+
+This project is built with Node.js, not Python.
+
+Required backend packages:
+- express
+- cors
+- dotenv
+- @google/generative-ai
+
+Frontend/runtime requirements:
+- Modern web browser
+- Internet access for Tailwind CDN and Google Fonts
+
+Environment variables:
+- GEMINI_API_KEY or API_KEY
+
+Notes:
+- Static challenge data is stored in `data.js`
+- Local score data is stored in `scores.json` and browser `localStorage`
